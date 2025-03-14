@@ -20,9 +20,8 @@ function draw(){
   rotateZ(-5);
   rotateY(-(frameCount * 20 / 60));
 
-  // Cập nhật mức độ bung của cánh hoa và kích thước tổng thể
   if (bloomProgress < 1) bloomProgress += 0.003;
-  if (sizeProgress < 1) sizeProgress += 0.002; // Chậm hơn để không bị phóng quá nhanh
+  if (sizeProgress < 1) sizeProgress += 0.002; 
   
   lotus(bloomProgress, sizeProgress);
 }
@@ -35,17 +34,15 @@ let petal_curvature = 2.2; // defaut: 2.3, The larger the number, the more curve
 function lotus(bloom, scale){
   for(let r = 0; r <= size * scale; r += dispersion){
     beginShape(POINTS);
-    
-    // Thu nhỏ vùng màu trắng hơn và mở rộng vùng màu hồng
-    let hueValue = map(r, 0, size, 0, 340); // 0 (trắng) -> 340 (hồng)
-    let brightnessValue = map(r, 0, size, 100, 90); // Làm vùng trắng nhỏ hơn
-    let saturationValue = map(r, 0.05, size, 20, 100); // Bắt đầu trắng nhỏ hơn, hồng đậm hơn
+
+    let hueValue = map(r, 0, size, 0, 340);
+    let brightnessValue = map(r, 0, size, 100, 90); 
+    let saturationValue = map(r, 0.05, size, 20, 100);
     stroke(hueValue, saturationValue, brightnessValue);
     
     for(let theta = 0; theta <= 180*8; theta += 1.5){
       let phi = (180/2.5)*Math.exp(-theta/(6.5*180));
       
-      // Điều chỉnh mức độ mở rộng của cánh hoa theo thời gian và theo góc xoay (theta)
       let petalFactor = map(sin(theta * 0.02 + bloom * PI), -1, 1, 0.4, 1);
       let petalCut = (0.5 + abs(asin(sin(petal_length * theta)) + 120 * sin(2.25 * theta)) / 360) * petalFactor;
       let hangDown = petal_curvature * pow(r, 2) * pow(0.8 * r - 1, 2) * sin(phi) * petalFactor;
