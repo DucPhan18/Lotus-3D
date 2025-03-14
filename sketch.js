@@ -35,7 +35,7 @@ function lotus(bloom, scale){
   for(let r = 0; r <= size * scale; r += dispersion){
     beginShape(POINTS);
 
-    let hueValue = map(r, 0, size, 0, 340);
+    let hueValue = map(r, 0, size, 0, 200);
     let brightnessValue = map(r, 0, size, 100, 90); 
     let saturationValue = map(r, 0.05, size, 20, 100);
     stroke(hueValue, saturationValue, brightnessValue);
